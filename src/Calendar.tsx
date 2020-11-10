@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import * as React from 'react'
-import { ViewStyle } from 'react-native'
+import { ViewStyle, View } from 'react-native'
 import { CalendarBody } from './CalendarBody'
 import { CalendarHeader } from './CalendarHeader'
 import { MIN_HEIGHT } from './commonStyles'
@@ -129,7 +129,7 @@ export const Calendar = React.memo(
     }
 
     return (
-      <>
+      <View style={{height}}>
         <CalendarHeader
           {...commonProps}
           allDayEvents={allDayEvents}
@@ -149,7 +149,7 @@ export const Calendar = React.memo(
           onPressEvent={onPressEvent}
           onSwipeHorizontal={onSwipeHorizontal}
         />
-      </>
+      </View>
     )
   },
 )

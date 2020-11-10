@@ -36,7 +36,7 @@ interface CalendarBodyProps<T> {
   eventCellStyle?: EventCellStyle<T>
   hideNowIndicator?: boolean
   overlapOffset?: number
-  isRTL:boolean
+  isRTL: boolean
   onPressCell?: (date: Date) => void
   onPressEvent?: (event: Event<T>) => void
   onSwipeHorizontal?: (d: HorizontalDirection) => void
@@ -63,9 +63,20 @@ interface HourCellProps extends WithCellHeight {
 
 function HourCell({ cellHeight, onPress, date, hour }: HourCellProps) {
   return (
-    <TouchableWithoutFeedback onPress={() => onPress(date.hour(hour).minute(0))}>
-      <View style={[commonStyles.dateCell, { height: cellHeight }]} />
-    </TouchableWithoutFeedback>
+    <View style={[commonStyles.dateCell, { height: cellHeight, justifyContent: "space-evenly" }]}>
+      <TouchableWithoutFeedback onPress={() => onPress(date.hour(hour).minute(0))}>
+        <View style={{ height: cellHeight / 4 }}></View>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => onPress(date.hour(hour).minute(15))}>
+        <View style={{ height: cellHeight / 4 }}></View>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => onPress(date.hour(hour).minute(30))}>
+        <View style={{ height: cellHeight / 4 }}></View>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => onPress(date.hour(hour).minute(45))}>
+        <View style={{ height: cellHeight / 4 }}></View>
+      </TouchableWithoutFeedback>
+    </View>
   )
 }
 
@@ -161,7 +172,7 @@ export const CalendarBody = React.memo(
         {...(Platform.OS !== 'web' ? panResponder.panHandlers : {})}
         showsVerticalScrollIndicator={false}
       >
-        <View style={isRTL?[styles.bodyRTL]:[styles.body]} {...(Platform.OS === 'web' ? panResponder.panHandlers : {})}>
+        <View style={isRTL ? [styles.bodyRTL] : [styles.body]} {...(Platform.OS === 'web' ? panResponder.panHandlers : {})}>
           <View style={[commonStyles.hourGuide]}>
             {hours.map((hour) => (
               <HourGuideColumn key={hour} cellHeight={cellHeight} hour={hour} ampm={ampm} />
@@ -183,9 +194,9 @@ export const CalendarBody = React.memo(
                   ({ start }) =>
                     start.isAfter(date.startOf('day')) && start.isBefore(date.endOf('day')),
                 )
-                .map((event) => (
+                .map((event, idx) => (
                   <CalendarEvent
-                    key={`${event.start}${event.title}`}
+                    key={`${event.start}${event.title}${idx}`}
                     event={event}
                     onPressEvent={onPressEvent}
                     eventCellStyle={eventCellStyle}
@@ -211,7 +222,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
   },
-  bodyRTL:{
+  bodyRTL: {
     flexDirection: 'row-reverse',
     flex: 1,
   },

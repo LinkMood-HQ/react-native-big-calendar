@@ -2,20 +2,21 @@ import { Platform, StyleSheet } from 'react-native'
 import { Color } from './theme'
 
 export const MIN_HEIGHT = 1200
-export const HOUR_GUIDE_WIDTH = 50
+export const HOUR_GUIDE_WIDTH = 40
 export const OVERLAP_OFFSET = Platform.OS === 'web' ? 20 : 8
 export const OVERLAP_PADDING = Platform.OS === 'web' ? 3 : 0
 
 export const commonStyles = StyleSheet.create({
   dateCell: {
-    borderWidth: 1,
-    borderColor: '#eee',
+    borderWidth: 0.5,
+    borderColor: '#f1f1f1',
     borderTopWidth: 0,
     borderRightWidth: 0,
   },
   guideText: {
     color: '#888',
-    fontSize: 11,
+    fontSize: 14,
+    fontWeight:"600",
     textAlign: 'center',
   },
   hourGuide: {
@@ -41,6 +42,6 @@ export const commonStyles = StyleSheet.create({
   },
   eventTitle: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: 14,
   },
 })

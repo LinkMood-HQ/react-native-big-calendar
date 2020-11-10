@@ -43,17 +43,17 @@ export const CalendarHeader = React.memo(
               disabled={onPressDateHeader === undefined}
               key={date.toString()}
             >
-              <View style={{ height: cellHeight, justifyContent: 'space-between' }}>
+              <View style={{ height: 30, justifyContent: 'space-between' }}>
                 <Text style={[commonStyles.guideText, _isToday && { color: Color.primary }]}>
-                  {date.format('ddd')}
+                  {date.format('ddd D/MM')}
                 </Text>
-                <View style={_isToday && styles.todayWrap}>
+                {/* <View style={_isToday && styles.todayWrap}>
                   <Text style={[styles.dateText, _isToday && { color: '#fff' }]}>
                     {date.format('D')}
                   </Text>
-                </View>
+                </View> */}
               </View>
-              <View style={[commonStyles.dateCell, { height: cellHeight }]}>
+              <View style={[commonStyles.dateCell, { height: 0 }]}>
                 {allDayEvents.map((event) => {
                   if (!event.start.isSame(date, 'day')) {
                     return null

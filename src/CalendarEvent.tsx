@@ -37,7 +37,7 @@ export const CalendarEvent = React.memo(
     showTime,
     eventCount = 1,
     eventOrder = 0,
-    overlapOffset = OVERLAP_OFFSET,
+    overlapOffset = 0,
   }: CalendarBodyProps<any>) => {
     const getEventStyle = React.useMemo(
       () => (typeof eventCellStyle === 'function' ? eventCellStyle : (_: any) => eventCellStyle),
@@ -60,18 +60,19 @@ export const CalendarEvent = React.memo(
           getEventCellPositionStyle(event),
           getStyleForOverlappingEvent(eventCount, eventOrder, overlapOffset),
           getEventStyle(event),
+          event.isCalendarEvent && {backgroundColor:"#C1C2C6"}
         ]}
         onPress={() => _onPress(event)}
         disabled={!onPressEvent}
       >
-        {event.end.diff(event.start, 'minute') < 32 && showTime ? (
+        {event.isCalendarEvent ? (
           <Text style={commonStyles.eventTitle}>
-            {event.title},<Text style={styles.eventTime}>{event.start.format('HH:mm')}</Text>
+            {event.title}{'\n'}<Text style={styles.eventTime}>{event.start.format('HH:mm')}</Text>
           </Text>
         ) : (
           <>
-            <Text style={commonStyles.eventTitle}>{event.title}</Text>
-            {showTime && <Text style={styles.eventTime}>{formatStartEnd(event)}</Text>}
+            <Text style={commonStyles.eventTitle}>{event.start.format('HH:mm')}</Text>
+            {showTime && <Text style={{fontWeight:"600", color:"#fff"}}>{event.start.format('ddd DD MMM')}</Text>}
             {event.children && event.children}
           </>
         )}

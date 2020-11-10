@@ -24,7 +24,7 @@ export function getDatesInWeek(
 
 export function getDatesInNextThreeDays(date: Date | dayjs.Dayjs = new Date(), locale = 'en') {
   const subject = dayjs(date).locale(locale)
-  const days = Array(3)
+  const days = Array(4)
     .fill(0)
     .map((_, i) => {
       return subject.add(i, 'day')
@@ -61,7 +61,7 @@ export function formatHour(hour: number, ampm = false) {
     }
     return `${hour} AM`
   }
-  return `${hour}:00`
+  return `${hour}`
 }
 
 export function isToday(date: dayjs.Dayjs) {
@@ -162,7 +162,7 @@ export function getStyleForOverlappingEvent(
     overlapStyle = {
       start: start + OVERLAP_PADDING,
       end: OVERLAP_PADDING,
-      backgroundColor: getColorForEventPosition(eventPosition),
+      backgroundColor: Color.primary,
       zIndex,
     }
   }
